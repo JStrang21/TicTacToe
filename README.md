@@ -1,1 +1,1 @@
-# TicTacToe
+In this project I'm going to create a tictactoe game that utilizes factory functions/modules in order to reduce pollution of the global namespace.
