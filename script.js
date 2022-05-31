@@ -4,6 +4,14 @@ const gameBoard = (() => {
         ['X','X'],
         ['X','X']
     ];
-    console.log(board);
+    const gameBoardContainer = document.querySelector('.gameBoardContainer');
+    for (element in board) {
+        const newElement = document.createElement('div');
+        newElement.innerHTML = board[element];
+        gameBoardContainer.appendChild(newElement);
+    }
 })();
 
+const newPlayer = (name) => {
+     
+}

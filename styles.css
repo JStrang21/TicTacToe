@@ -1,7 +1,10 @@
-
 body {
     margin: 0;
     height: 100%;
+}
+
+.gameBoardContainer {
+    height: 5rem;
 }
 
 /*Add normalize css https://necolas.github.io/normalize.css/latest/normalize.css*/
