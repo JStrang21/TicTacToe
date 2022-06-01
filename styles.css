@@ -4,7 +4,11 @@ body {
 }
 
 .gameBoardContainer {
+    padding-top: 5rem;
+    justify-content: center;
     height: 5rem;
+    display: grid;
+    grid: 1rem 1rem 1rem/ 1rem 1rem 1rem;
 }
 
 /*Add normalize css https://necolas.github.io/normalize.css/latest/normalize.css*/

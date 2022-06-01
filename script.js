@@ -5,11 +5,13 @@ const gameBoard = (() => {
         ['X','X','X']
     ];
     const gameBoardContainer = document.querySelector('.gameBoardContainer');
-    for (element in board) {
-        const newElement = document.createElement('div');
-        newElement.innerHTML = board[element];
-        gameBoardContainer.appendChild(newElement);
-        newElement.addEventListener('click', () => {console.log('Hello')})
+    for (i = 0; i < board.length; i++) {
+        for (j = 0; j < board[i].length; j++) {
+            const newElement = document.createElement('div');
+            newElement.innerHTML = board[i][j];
+            gameBoardContainer.appendChild(newElement);
+            newElement.addEventListener('click', () => {newElement.style.backgroundColor = 'red'})
+        }
     }
 })();
 
