@@ -40,32 +40,26 @@ const gameBoard = (() => {
     }
 })();
 
+//Counts clicks and has user 1 or 2 click depending on if counter is even or odd
 let numberOfClicks = 0;
 function countClicks(e) {
-    if (numberOfClicks < 9) {
-        if (numberOfClicks % 2 == 0) {
-            numberOfClicks++;
-            playerOne.playerClick(e);
+    if (this.innerHTML === '') {
+        if (numberOfClicks < 9) {
+            if (numberOfClicks % 2 == 0) {
+                numberOfClicks++;
+                playerOne.playerClick(e);
+            }
+            else {
+                numberOfClicks++;
+                playerTwo.playerClick(e);
+            }
         }
-        else {
-            numberOfClicks++;
-            playerTwo.playerClick(e);
-        }
+    }
+    else {
+        console.log('Error: tile already placed')
     }
 }
 
+const controlDisplay = () => {
 
-//Must allow unclicked element to become clicked and then switch to other player
-/*function switchPlayers(e) {
-    for (i=0; i<9;) {
-        if (i % 2 == 0) {
-            let returned = playerOne.playerClick.bind(e);
-            i++;
-            return returned
-        }
-        else {
-            i++;
-            return console.log('No')
-        }
-    }
-}*/
+}
