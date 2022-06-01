@@ -11,4 +11,8 @@ body {
     grid: 1rem 1rem 1rem/ 1rem 1rem 1rem;
 }
 
+.gameBoardContainer > div {
+    background-color: rgb(255, 81, 0);
+}
+
 /*Add normalize css https://necolas.github.io/normalize.css/latest/normalize.css*/

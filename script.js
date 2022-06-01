@@ -1,9 +1,10 @@
 //Module which creates gameboard array with clickable elements
+
 const gameBoard = (() => {
     const board = [
-        ['X','X','X'],
-        ['X','X','X'],
-        ['X','X','X']
+        ['','',''],
+        ['','',''],
+        ['','','']
     ];
 
     const gameBoardContainer = document.querySelector('.gameBoardContainer');
@@ -11,33 +12,34 @@ const gameBoard = (() => {
     for (i = 0; i < board.length; i++) {
         for (j = 0; j < board[i].length; j++) {
             const newElement = document.createElement('div');
+            newElement.setAttribute('class', 'sqaures');
+            newElement.setAttribute('id', [i] + [j]);
             newElement.innerHTML = board[i][j];
             gameBoardContainer.appendChild(newElement);
-            //newElement.addEventListener('click', )
-        }
+        }    
     }
 })();
 
-const newPlayer = () => {
+const newPlayer = (playerNumber) => {
     let playerSign;
-    let playerCount = 0;
-    if (playerCount == 0) {
+    if (playerNumber == 0) {
         playerSign = 'X';
     }
-    else if (playerCount == 1) {
+    else if (playerNumber == 1) {
         playerSign = 'O';
     }
     else {console.log('Error: maximum player count is 2 players')}
 
     const playerClick = () => {
-         this.innerHTML = playerSign;
-         console.log('Hello')
+        
     }
-    playerCount++;
     return {playerClick}
 }
 
-const playerOne = newPlayer();
+const playerOne = newPlayer(0);
 
-console.log(newPlayer.playerCount)
 
+
+const displayController = () {
+
+}
