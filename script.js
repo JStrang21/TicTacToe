@@ -13,7 +13,10 @@ const newPlayer = (playerNumber) => {
         e.target.innerHTML = playerSign;
         e.target.setAttribute('class', `checked`);
     }
-    return {playerClick}
+    const winStatus = () => {
+
+    }
+    return {playerClick, winStatus}
 }
 const playerOne = newPlayer(0);
 const playerTwo = newPlayer(1);
@@ -27,10 +30,12 @@ const gameBoard = (() => {
     ];
     const gameBoardContainer = document.querySelector('.gameBoardContainer');
     //Two loops for each dimension of board checkedArray
+    let elementID = 0;
     for (i = 0; i < board.length; i++) {
         for (j = 0; j < board[i].length; j++) {
             const newElement = document.createElement('div');
-            newElement.setAttribute('id', [i] + [j]);
+            newElement.setAttribute('id', `${elementID}`);
+            elementID++;
             newElement.innerHTML = board[i][j];
             gameBoardContainer.appendChild(newElement);
 
@@ -52,16 +57,12 @@ function countClicks(e) {
             if (numberOfClicks % 2 == 0) {
                 numberOfClicks++;
                 playerOne.playerClick(e);
-                if (numberOfClicks >= 5) {
-                    checkGame(e);
-                }
+                checkGame(e);
             }
             else {
                 numberOfClicks++;
                 playerTwo.playerClick(e);
-                if (numberOfClicks >= 5) {
-                    checkGame(e);
-                }
+                checkGame(e);
             }
         }
     }
@@ -70,13 +71,14 @@ function countClicks(e) {
     }
 }
 
-let checkedArray = [];
+let checkedArray = [1,2,3,4,5,6,7,8,9];
 const checkGame = (e) => {
-    checkedArray.push(e.target.innerHTML);
-    
+    let elementPosition = e.target.id;
+    checkedArray[elementPosition] = e.target.innerHTML;
+    console.log(checkedArray);
+  
     for (let i = 0; i < 3; i++) {
         if (i == 0) {
-            console.log(checkedArray[0])
             if ((checkedArray[0] === checkedArray[3]) && (checkedArray[0] === checkedArray[6])) {
                 console.log('1st column same')
             }
@@ -127,6 +129,12 @@ const checkGame = (e) => {
                 console.log('Not same')
             }
         } 
+    }
+    if ((checkedArray[0] == checkedArray[4]) && (checkedArray[0] == checkedArray[8])) {
+        console.log('Cross win')
+    }
+    else if ((checkedArray[2] == checkedArray[4]) && (checkedArray[2] == checkedArray[6])) {
+        console.log('Cross win')
     }
 }
 
