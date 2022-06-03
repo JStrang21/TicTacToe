@@ -16,10 +16,10 @@ const newPlayer = (playerNumber) => {
     const winStatus = () => {
 
     }
-    return {playerClick, winStatus}
+    return {playerClick, winStatus, playerSign}
 }
-const playerOne = newPlayer(0);
-const playerTwo = newPlayer(1);
+const playerX = newPlayer(0);
+const playerO = newPlayer(1);
 
 //IFFE Module which creates gameboard checkedArray with clickable elements
 const gameBoard = (() => {
@@ -56,12 +56,12 @@ function countClicks(e) {
         if (numberOfClicks < 9) {
             if (numberOfClicks % 2 == 0) {
                 numberOfClicks++;
-                playerOne.playerClick(e);
+                playerX.playerClick(e);
                 checkGame(e);
             }
             else {
                 numberOfClicks++;
-                playerTwo.playerClick(e);
+                playerO.playerClick(e);
                 checkGame(e);
             }
         }
@@ -75,67 +75,58 @@ let checkedArray = [1,2,3,4,5,6,7,8,9];
 const checkGame = (e) => {
     let elementPosition = e.target.id;
     checkedArray[elementPosition] = e.target.innerHTML;
-    console.log(checkedArray);
   
     for (let i = 0; i < 3; i++) {
         if (i == 0) {
             if ((checkedArray[0] === checkedArray[3]) && (checkedArray[0] === checkedArray[6])) {
-                console.log('1st column same')
-            }
-            else {
-                console.log('Not same')
+                winner(checkedArray[0]);
             }
         }
         if (i = 1) {
             if ((checkedArray[1] === checkedArray[4]) && (checkedArray[1] === checkedArray[7])) {
-                console.log('2nd column same')
-            }
-            else {
-                console.log('Not same')
+                winner(checkedArray[1]);
             }
         }
         if (i = 2) {
             if ((checkedArray[2] === checkedArray[5]) && (checkedArray[2] === checkedArray[8])) {
-                console.log('3rd column same')
-                console.log(checkedArray[2], checkedArray[5], checkedArray[8])
-            }
-            else {
-                console.log('Not same')
+                winner(checkedArray[2]);
             }
         }
     }
     for (j = 0; j < 7; j++) {
         if (j = 0) {
             if ((checkedArray[0] == checkedArray[1]) && (checkedArray[0] == checkedArray[2])) {
-                console.log('1st Row same')
-            }
-            else {
-                console.log('Not same')
+                winner(checkedArray[0]);
             }
         }
         if (j = 3) {
             if ((checkedArray[3] == checkedArray[4]) && (checkedArray[3] == checkedArray[5])) {
-                console.log('2nd Row same')
-            }
-            else {
-                console.log('Not same')
+                winner(checkedArray[3])
             }
         }
         if (j = 6) {
             if ((checkedArray[6] == checkedArray[7]) && (checkedArray[6] == checkedArray[8])) {
-                console.log('3rd Row same')
-            }
-            else {
-                console.log('Not same')
+                winner(checkedArray[6])
             }
         } 
     }
     if ((checkedArray[0] == checkedArray[4]) && (checkedArray[0] == checkedArray[8])) {
-        console.log('Cross win')
+        winner(checkedArray[0])
     }
     else if ((checkedArray[2] == checkedArray[4]) && (checkedArray[2] == checkedArray[6])) {
-        console.log('Cross win')
+        winner(checkedArray[2])
     }
+    
 }
 
-   
+const winner = (e) => {
+    if (e == playerX.playerSign) {
+        console.log('Player X Wins')
+    }
+    else if (e == playerO.playerSign) {
+        console.log('Player O Wins')
+    }
+    else {
+        console.log('Error')
+    }
+}
