@@ -1,6 +1,7 @@
 
 const newPlayer = (playerNumber) => {
     let playerSign;
+    let playerName;
     if (playerNumber == 0) {
         playerSign = 'X';
     }
@@ -13,10 +14,9 @@ const newPlayer = (playerNumber) => {
         e.target.innerHTML = playerSign;
         e.target.setAttribute('class', `checked`);
     }
-    const winStatus = () => {
-
-    }
-    return {playerClick, winStatus, playerSign}
+    //For best of 3
+    /*let winCount = 0;*/
+    return {playerClick, playerSign, playerName}
 }
 const playerX = newPlayer(0);
 const playerO = newPlayer(1);
@@ -41,9 +41,6 @@ const gameBoard = (() => {
 
             //Eventlistener to add player click
             newElement.addEventListener('click', countClicks.bind(newElement));
-           
-            //Eventlistener to check for tie/win
-            //newElement.addEventListener('mouseup', checkGameResults(newElement));
         }    
     }
 })();
@@ -76,6 +73,7 @@ const checkGame = (e) => {
     let elementPosition = e.target.id;
     checkedArray[elementPosition] = e.target.innerHTML;
   
+    //Checks columns for win
     for (let i = 0; i < 3; i++) {
         if (i == 0) {
             if ((checkedArray[0] === checkedArray[3]) && (checkedArray[0] === checkedArray[6])) {
@@ -93,6 +91,7 @@ const checkGame = (e) => {
             }
         }
     }
+    //Checks rows for win
     for (j = 0; j < 7; j++) {
         if (j = 0) {
             if ((checkedArray[0] == checkedArray[1]) && (checkedArray[0] == checkedArray[2])) {
@@ -110,23 +109,40 @@ const checkGame = (e) => {
             }
         } 
     }
+    //Checks diagonals for win
     if ((checkedArray[0] == checkedArray[4]) && (checkedArray[0] == checkedArray[8])) {
         winner(checkedArray[0])
     }
     else if ((checkedArray[2] == checkedArray[4]) && (checkedArray[2] == checkedArray[6])) {
         winner(checkedArray[2])
     }
-    
 }
 
+//Declares winner when three in a row are found
 const winner = (e) => {
     if (e == playerX.playerSign) {
-        console.log('Player X Wins')
+        //playerX.winCount++;
+        console.log(`${playerX.playerName} wins`)
     }
     else if (e == playerO.playerSign) {
-        console.log('Player O Wins')
+        //playerO.winCount++;
+        console.log(`${playerO.playerName} wins`)
     }
     else {
         console.log('Error')
     }
 }
+
+//Player name input and create new player with inputted name
+const submitButton = document.getElementById('submitButton');
+submitButton.addEventListener('click', () => {
+    const playerOneName = document.getElementById('playerOneInput').value;
+    const playerTwoName = document.getElementById('playerTwoInput').value;
+    playerX.playerName = playerOneName;
+    playerO.playerName = playerTwoName;
+})
+
+const resetButton = document.getElementById('resetButton');
+resetButton.addEventListener('click', () => {
+    
+})

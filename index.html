@@ -9,6 +9,20 @@
     <title>TicTacToe</title>
 </head>
 <body>
+    <button>Start</button>
+    <button id='resetButton'>Reset</button>
+    <form onsubmit="return false">
+        <label for="playerOneInput">X Player:</label>
+        <input type="text" id="playerOneInput" placeholder='Player One' required>
+
+        <label for="playerTwoInput">O Player:</label>
+        <input type="text" id="playerTwoInput" placeholder='Player Two' required>
+
+        <input type="submit" value="Submit" id="submitButton">
+    </form>
+
+    <div>Outcome</div>
+    
     <div class="gameBoardContainer">
 
     </div>
