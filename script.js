@@ -12,7 +12,8 @@ const newPlayer = (playerNumber) => {
 
     const playerClick = (e) => {
         e.target.innerHTML = playerSign;
-        e.target.setAttribute('class', `checked`);
+        e.target.removeAttribute('class', 'aiFunctionality');
+        e.target.classList.add(`checked`, 'gameElements');
     }
     return {playerClick, playerSign, playerName, winCount}
 }
@@ -33,6 +34,7 @@ const gameBoard = (() => {
         for (j = 0; j < board[i].length; j++) {
             const newElement = document.createElement('div');
             newElement.setAttribute('id', `${elementID}`);
+            newElement.classList.add('aiFunctionality', 'gameElements');
             elementID++;
             newElement.innerHTML = board[i][j];
             gameBoardContainer.appendChild(newElement);
@@ -74,7 +76,7 @@ let checkedArray = [1,2,3,4,5,6,7,8,9];
 const checkGame = (e) => {
     let elementPosition = e.target.id;
     checkedArray[elementPosition] = e.target.innerHTML;
-  
+    
     //Checks columns for win
     for (let i = 0; i < 3; i++) {
         if (i == 0) {
@@ -118,6 +120,19 @@ const checkGame = (e) => {
     else if ((checkedArray[2] == checkedArray[4]) && (checkedArray[2] == checkedArray[6])) {
         winner(checkedArray[2])
     }
+    if (numberOfClicks < 9) {
+        if (numberOfClicks % 2 != 0) {
+            const possibleElements = document.getElementsByClassName('aiFunctionality');
+            let maximum = possibleElements.length
+            let randomPosition = getRandomInt(maximum);
+            //possibleElements[randomPosition].removeAttribute('class', 'aiFunctionality')
+            possibleElements[randomPosition].click(countClicks.bind(possibleElements[randomPosition]))
+        }
+    }
+}
+
+function getRandomInt(maximum) {
+    return Math.floor(Math.random() * maximum);
 }
 
 //Declares winner when three in a row are found
@@ -127,14 +142,14 @@ const winner = (e) => {
         playerX.winCount++;
         winnerOutput.innerHTML = playerX.playerName + ' wins';
         if (playerX.winCount >= 3) {
-            winnerOutput.innerHTML = playerX.playerName + ' won ' + playerX.winCount + ' times';
+            winnerOutput.innerHTML = playerX.playerName + ' won ';
         }
     }
     else if (e == playerO.playerSign) {
         playerO.winCount++;
         winnerOutput.innerHTML = playerO.playerName +' wins';
         if (playerO.winCount >= 3) {
-            winnerOutput.innerHTML = playerO.playerName + ' won ' + playerO.winCount + ' times';
+            winnerOutput.innerHTML = playerO.playerName + ' won ';
         }
     }
     else {
@@ -162,9 +177,12 @@ namesButton.addEventListener('click', () => {
 
 //Reset function
 const resetBoard = () => {
-    const gameBoardElementsOne = document.querySelectorAll('.checked');
+    const gameBoardElementsOne = Array.from(document.querySelectorAll('.gameElements'));
+    //gameBoardElementsOne.classList.add('aiFunctionality', 'gameElements')
     for (element in gameBoardElementsOne) {
         gameBoardElementsOne[element].innerHTML = '';
+        gameBoardElementsOne[element].removeAttribute('class', 'checked');
+        gameBoardElementsOne[element].classList.add('aiFunctionality', 'gameElements');
     }
     winnerOutput.innerHTML = ''
     checkedArray = [1,2,3,4,5,6,7,8,9];
@@ -177,7 +195,8 @@ const resetButton = document.getElementById('resetButton');
 resetButton.addEventListener('click', resetBoard)
 
 function aiPlayer() {
-    let playerAI = playerO;
-    console.log(playerAI)
+    playerO.aiFunction
 }
-aiPlayer()
+
+const aiButton = document.getElementById('aiToggle');
+aiButton.addEventListener('click', aiPlayer);
