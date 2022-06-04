@@ -23,7 +23,7 @@ const playerO = newPlayer(1);
 
 //IFFE Module which creates gameboard checkedArray with clickable elements
 const gameBoard = (() => {
-    const board = [
+    let board = [
         ['','',''],
         ['','',''],
         ['','','']
@@ -45,6 +45,7 @@ const gameBoard = (() => {
     }
 })();
 
+
 //Counts clicks and has user 1 or 2 click depending on if counter is even or odd
 let numberOfClicks = 0;
 function countClicks(e) {
@@ -56,10 +57,13 @@ function countClicks(e) {
                 playerX.playerClick(e);
                 checkGame(e);
             }
-            else {
+            else if (numberOfClicks % 2 != 0) {
                 numberOfClicks++;
                 playerO.playerClick(e);
                 checkGame(e);
+            }
+            else {
+                console.log('error')
             }
         }
     }
@@ -78,6 +82,7 @@ const checkGame = (e) => {
         if (i == 0) {
             if ((checkedArray[0] === checkedArray[3]) && (checkedArray[0] === checkedArray[6])) {
                 winner(checkedArray[0]);
+                console.log(checkedArray)
             }
         }
         if (i = 1) {
@@ -119,14 +124,15 @@ const checkGame = (e) => {
 }
 
 //Declares winner when three in a row are found
+const winnerOutput = document.getElementById('winner');
 const winner = (e) => {
     if (e == playerX.playerSign) {
         //playerX.winCount++;
-        console.log(`${playerX.playerName} wins`)
+        winnerOutput.innerHTML = playerX.playerName + ' wins';
     }
     else if (e == playerO.playerSign) {
         //playerO.winCount++;
-        console.log(`${playerO.playerName} wins`)
+        winnerOutput.innerHTML = playerO.playerName +' wins';
     }
     else {
         console.log('Error')
@@ -142,7 +148,16 @@ submitButton.addEventListener('click', () => {
     playerO.playerName = playerTwoName;
 })
 
+
 const resetButton = document.getElementById('resetButton');
 resetButton.addEventListener('click', () => {
-    
+    const gameBoardElementsOne = document.querySelectorAll('.checked');
+    for (element in gameBoardElementsOne) {
+        gameBoardElementsOne[element]
+        gameBoardElementsOne[element].innerHTML = '';
+    }
+    winnerOutput.innerHTML = ''
+    checkedArray = [1,2,3,4,5,6,7,8,9];
+    numberOfClicks = 0;
+    return {numberOfClicks, checkedArray}
 })
