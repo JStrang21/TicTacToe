@@ -1,7 +1,7 @@
-
 const newPlayer = (playerNumber) => {
     let playerSign;
     let playerName;
+    let winCount = 0;
     if (playerNumber == 0) {
         playerSign = 'X';
     }
@@ -12,17 +12,20 @@ const newPlayer = (playerNumber) => {
 
     const playerClick = (e) => {
         e.target.innerHTML = playerSign;
-        e.target.setAttribute('class', `checked`);
+        e.target.removeAttribute('class', 'aiFunctionality');
+        e.target.classList.add(`checked`, 'gameElements');
     }
-    //For best of 3
-    /*let winCount = 0;*/
-    return {playerClick, playerSign, playerName}
+    return {playerClick, playerSign, playerName, winCount}
 }
 const playerX = newPlayer(0);
 const playerO = newPlayer(1);
 
 //IFFE Module which creates gameboard checkedArray with clickable elements
 const gameBoard = (() => {
+    const playerform = document.getElementById('myForm');
+    playerform.style['display'] = 'none';
+    const aiform = document.getElementById('aiForm');
+    aiform.style['display'] = 'none';
     let board = [
         ['','',''],
         ['','',''],
@@ -35,6 +38,7 @@ const gameBoard = (() => {
         for (j = 0; j < board[i].length; j++) {
             const newElement = document.createElement('div');
             newElement.setAttribute('id', `${elementID}`);
+            newElement.classList.add('aiFunctionality', 'gameElements');
             elementID++;
             newElement.innerHTML = board[i][j];
             gameBoardContainer.appendChild(newElement);
@@ -76,13 +80,12 @@ let checkedArray = [1,2,3,4,5,6,7,8,9];
 const checkGame = (e) => {
     let elementPosition = e.target.id;
     checkedArray[elementPosition] = e.target.innerHTML;
-  
+    
     //Checks columns for win
     for (let i = 0; i < 3; i++) {
         if (i == 0) {
             if ((checkedArray[0] === checkedArray[3]) && (checkedArray[0] === checkedArray[6])) {
                 winner(checkedArray[0]);
-                console.log(checkedArray)
             }
         }
         if (i = 1) {
@@ -121,18 +124,36 @@ const checkGame = (e) => {
     else if ((checkedArray[2] == checkedArray[4]) && (checkedArray[2] == checkedArray[6])) {
         winner(checkedArray[2])
     }
+    if (numberOfClicks < 9 && playerO.playerName == 'AI') {
+        if (numberOfClicks % 2 != 0) {
+            const possibleElements = document.getElementsByClassName('aiFunctionality');
+            let maximum = possibleElements.length
+            let randomPosition = getRandomInt(maximum);
+            possibleElements[randomPosition].click(countClicks.bind(possibleElements[randomPosition]))
+        }
+    }
+}
+
+function getRandomInt(maximum) {
+    return Math.floor(Math.random() * maximum);
 }
 
 //Declares winner when three in a row are found
 const winnerOutput = document.getElementById('winner');
 const winner = (e) => {
     if (e == playerX.playerSign) {
-        //playerX.winCount++;
+        playerX.winCount++;
         winnerOutput.innerHTML = playerX.playerName + ' wins';
+        if (playerX.winCount >= 3) {
+            winnerOutput.innerHTML = playerX.playerName + ' won ';
+        }
     }
     else if (e == playerO.playerSign) {
-        //playerO.winCount++;
+        playerO.winCount++;
         winnerOutput.innerHTML = playerO.playerName +' wins';
+        if (playerO.winCount >= 3) {
+            winnerOutput.innerHTML = playerO.playerName + ' won ';
+        }
     }
     else {
         console.log('Error')
@@ -146,18 +167,51 @@ submitButton.addEventListener('click', () => {
     const playerTwoName = document.getElementById('playerTwoInput').value;
     playerX.playerName = playerOneName;
     playerO.playerName = playerTwoName;
+
+    const form = document.getElementById('myForm');
+    form.style['display'] = 'none';
 })
 
+const namesButton = document.getElementById('namesButton');
+namesButton.addEventListener('click', () => {
+    const playerform = document.getElementById('myForm');
+    playerform.style['display'] = '';
+    const aiform = document.getElementById('aiForm');
+    aiform.style['display'] = 'none';
+})
 
-const resetButton = document.getElementById('resetButton');
-resetButton.addEventListener('click', () => {
-    const gameBoardElementsOne = document.querySelectorAll('.checked');
+//Reset function
+const resetBoard = () => {
+    const gameBoardElementsOne = Array.from(document.querySelectorAll('.gameElements'));
+    //gameBoardElementsOne.classList.add('aiFunctionality', 'gameElements')
     for (element in gameBoardElementsOne) {
-        gameBoardElementsOne[element]
         gameBoardElementsOne[element].innerHTML = '';
+        gameBoardElementsOne[element].removeAttribute('class', 'checked');
+        gameBoardElementsOne[element].classList.add('aiFunctionality', 'gameElements');
     }
     winnerOutput.innerHTML = ''
     checkedArray = [1,2,3,4,5,6,7,8,9];
     numberOfClicks = 0;
     return {numberOfClicks, checkedArray}
+}
+
+//Reset button which resets board by removing checks, resetting numberOfClicks, and resetting checkedArray
+const resetButton = document.getElementById('resetButton');
+resetButton.addEventListener('click', resetBoard)
+
+const aiButton = document.getElementById('aiToggle');
+aiButton.addEventListener('click', () => {
+    const playerform = document.getElementById('myForm');
+    playerform.style['display'] = 'none';
+    const aiform = document.getElementById('aiForm');
+    aiform.style['display'] = '';
+});
+const aiSubmit = document.getElementById('submitButtonAI');
+aiSubmit.addEventListener('click', () => {
+    const playerOneName = document.getElementById('playerOneInputAI').value;
+    playerX.playerName = playerOneName;
+    playerO.playerName = 'AI';
+
+    const aiform = document.getElementById('aiForm');
+    aiform.style['display'] = 'none';    
 })

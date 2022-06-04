@@ -9,16 +9,24 @@
     <title>TicTacToe</title>
 </head>
 <body>
-    <button>Start</button>
-    <button id='resetButton'>Reset</button>
-    <form onsubmit="return false">
+    <!--<button>Start</button> will add start functionality-->
+    <button id='resetButton'>Reset Board</button>
+    <button id="namesButton">Enter Names</button>
+    <button id="aiToggle">AI</button>
+    <form id='myForm' onsubmit="return false">
         <label for="playerOneInput">X Player:</label>
         <input type="text" id="playerOneInput" placeholder='Player One' required>
 
         <label for="playerTwoInput">O Player:</label>
         <input type="text" id="playerTwoInput" placeholder='Player Two' required>
 
-        <input type="submit" value="Submit" id="submitButton">
+        <input type="submit" value="Submit Names" id="submitButton">
+    </form>
+
+    <form id="aiForm" onsubmit="return false">
+        <label for="playerOneInput">X Player:</label>
+        <input type="text" id="playerOneInputAI" placeholder='Player One' required>
+        <input type="submit" value="Submit Names" id="submitButtonAI">
     </form>
 
     <div id="winner">Outcome</div>
