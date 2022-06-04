@@ -1,4 +1,3 @@
-
 const newPlayer = (playerNumber) => {
     let playerSign;
     let playerName;
@@ -150,6 +149,15 @@ submitButton.addEventListener('click', () => {
     const playerTwoName = document.getElementById('playerTwoInput').value;
     playerX.playerName = playerOneName;
     playerO.playerName = playerTwoName;
+
+    const form = document.getElementById('myForm');
+    form.style['display'] = 'none';
+})
+
+const namesButton = document.getElementById('namesButton');
+namesButton.addEventListener('click', () => {
+    const form = document.getElementById('myForm');
+    form.style['display'] = '';
 })
 
 //Reset function
@@ -167,3 +175,7 @@ const resetBoard = () => {
 //Reset button which resets board by removing checks, resetting numberOfClicks, and resetting checkedArray
 const resetButton = document.getElementById('resetButton');
 resetButton.addEventListener('click', resetBoard)
+
+function aiPlayer() {
+    
+}
