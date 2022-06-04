@@ -124,7 +124,7 @@ const checkGame = (e) => {
     else if ((checkedArray[2] == checkedArray[4]) && (checkedArray[2] == checkedArray[6])) {
         winner(checkedArray[2])
     }
-    if (numberOfClicks < 9) {
+    if (numberOfClicks < 9 && playerO.playerName == 'AI') {
         if (numberOfClicks % 2 != 0) {
             const possibleElements = document.getElementsByClassName('aiFunctionality');
             let maximum = possibleElements.length
@@ -199,15 +199,19 @@ const resetBoard = () => {
 const resetButton = document.getElementById('resetButton');
 resetButton.addEventListener('click', resetBoard)
 
-function aiPlayer() {
-    playerO.aiFunction
-}
-
 const aiButton = document.getElementById('aiToggle');
 aiButton.addEventListener('click', () => {
     const playerform = document.getElementById('myForm');
     playerform.style['display'] = 'none';
     const aiform = document.getElementById('aiForm');
     aiform.style['display'] = '';
-
 });
+const aiSubmit = document.getElementById('submitButtonAI');
+aiSubmit.addEventListener('click', () => {
+    const playerOneName = document.getElementById('playerOneInputAI').value;
+    playerX.playerName = playerOneName;
+    playerO.playerName = 'AI';
+
+    const aiform = document.getElementById('aiForm');
+    aiform.style['display'] = 'none';    
+})
