@@ -22,6 +22,10 @@ const playerO = newPlayer(1);
 
 //IFFE Module which creates gameboard checkedArray with clickable elements
 const gameBoard = (() => {
+    const playerform = document.getElementById('myForm');
+    playerform.style['display'] = 'none';
+    const aiform = document.getElementById('aiForm');
+    aiform.style['display'] = 'none';
     let board = [
         ['','',''],
         ['','',''],
@@ -125,7 +129,6 @@ const checkGame = (e) => {
             const possibleElements = document.getElementsByClassName('aiFunctionality');
             let maximum = possibleElements.length
             let randomPosition = getRandomInt(maximum);
-            //possibleElements[randomPosition].removeAttribute('class', 'aiFunctionality')
             possibleElements[randomPosition].click(countClicks.bind(possibleElements[randomPosition]))
         }
     }
@@ -171,8 +174,10 @@ submitButton.addEventListener('click', () => {
 
 const namesButton = document.getElementById('namesButton');
 namesButton.addEventListener('click', () => {
-    const form = document.getElementById('myForm');
-    form.style['display'] = '';
+    const playerform = document.getElementById('myForm');
+    playerform.style['display'] = '';
+    const aiform = document.getElementById('aiForm');
+    aiform.style['display'] = 'none';
 })
 
 //Reset function
@@ -199,4 +204,10 @@ function aiPlayer() {
 }
 
 const aiButton = document.getElementById('aiToggle');
-aiButton.addEventListener('click', aiPlayer);
+aiButton.addEventListener('click', () => {
+    const playerform = document.getElementById('myForm');
+    playerform.style['display'] = 'none';
+    const aiform = document.getElementById('aiForm');
+    aiform.style['display'] = '';
+
+});
