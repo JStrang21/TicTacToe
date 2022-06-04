@@ -2,6 +2,7 @@
 const newPlayer = (playerNumber) => {
     let playerSign;
     let playerName;
+    let winCount = 0;
     if (playerNumber == 0) {
         playerSign = 'X';
     }
@@ -14,9 +15,7 @@ const newPlayer = (playerNumber) => {
         e.target.innerHTML = playerSign;
         e.target.setAttribute('class', `checked`);
     }
-    //For best of 3
-    /*let winCount = 0;*/
-    return {playerClick, playerSign, playerName}
+    return {playerClick, playerSign, playerName, winCount}
 }
 const playerX = newPlayer(0);
 const playerO = newPlayer(1);
@@ -82,7 +81,6 @@ const checkGame = (e) => {
         if (i == 0) {
             if ((checkedArray[0] === checkedArray[3]) && (checkedArray[0] === checkedArray[6])) {
                 winner(checkedArray[0]);
-                console.log(checkedArray)
             }
         }
         if (i = 1) {
@@ -127,12 +125,18 @@ const checkGame = (e) => {
 const winnerOutput = document.getElementById('winner');
 const winner = (e) => {
     if (e == playerX.playerSign) {
-        //playerX.winCount++;
+        playerX.winCount++;
         winnerOutput.innerHTML = playerX.playerName + ' wins';
+        if (playerX.winCount >= 3) {
+            winnerOutput.innerHTML = playerX.playerName + ' won ' + playerX.winCount + ' times';
+        }
     }
     else if (e == playerO.playerSign) {
-        //playerO.winCount++;
+        playerO.winCount++;
         winnerOutput.innerHTML = playerO.playerName +' wins';
+        if (playerO.winCount >= 3) {
+            winnerOutput.innerHTML = playerO.playerName + ' won ' + playerO.winCount + ' times';
+        }
     }
     else {
         console.log('Error')
@@ -148,16 +152,18 @@ submitButton.addEventListener('click', () => {
     playerO.playerName = playerTwoName;
 })
 
-
-const resetButton = document.getElementById('resetButton');
-resetButton.addEventListener('click', () => {
+//Reset function
+const resetBoard = () => {
     const gameBoardElementsOne = document.querySelectorAll('.checked');
     for (element in gameBoardElementsOne) {
-        gameBoardElementsOne[element]
         gameBoardElementsOne[element].innerHTML = '';
     }
     winnerOutput.innerHTML = ''
     checkedArray = [1,2,3,4,5,6,7,8,9];
     numberOfClicks = 0;
     return {numberOfClicks, checkedArray}
-})
+}
+
+//Reset button which resets board by removing checks, resetting numberOfClicks, and resetting checkedArray
+const resetButton = document.getElementById('resetButton');
+resetButton.addEventListener('click', resetBoard)
