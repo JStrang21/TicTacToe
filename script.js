@@ -177,5 +177,7 @@ const resetButton = document.getElementById('resetButton');
 resetButton.addEventListener('click', resetBoard)
 
 function aiPlayer() {
-    
+    let playerAI = playerO;
+    console.log(playerAI)
 }
+aiPlayer()
