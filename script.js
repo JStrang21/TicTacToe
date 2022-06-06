@@ -80,7 +80,6 @@ let checkedArray = [1,2,3,4,5,6,7,8,9];
 const checkGame = (e) => {
     let elementPosition = e.target.id;
     checkedArray[elementPosition] = e.target.innerHTML;
-    
     //Checks columns for win
     for (let i = 0; i < 3; i++) {
         if (i == 0) {
@@ -99,6 +98,7 @@ const checkGame = (e) => {
             }
         }
     }
+    //Issue: first row doesnt display winner
     //Checks rows for win
     for (j = 0; j < 7; j++) {
         if (j = 0) {
@@ -192,6 +192,8 @@ const resetBoard = () => {
     winnerOutput.innerHTML = ''
     checkedArray = [1,2,3,4,5,6,7,8,9];
     numberOfClicks = 0;
+    playerO.winCount = 0;
+    playerX.winCount = 0;
     return {numberOfClicks, checkedArray}
 }
 
@@ -215,3 +217,4 @@ aiSubmit.addEventListener('click', () => {
     const aiform = document.getElementById('aiForm');
     aiform.style['display'] = 'none';    
 })
+

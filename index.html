@@ -10,9 +10,11 @@
 </head>
 <body>
     <!--<button>Start</button> will add start functionality-->
-    <button id='resetButton'>Reset Board</button>
-    <button id="namesButton">Enter Names</button>
-    <button id="aiToggle">AI</button>
+    <div class="buttonContainer">
+        <button id='resetButton'>Reset Board</button>
+        <button id="namesButton">Enter Names</button>
+        <button id="aiToggle">AI</button>
+    </div>
     <form id='myForm' onsubmit="return false">
         <label for="playerOneInput">X Player:</label>
         <input type="text" id="playerOneInput" placeholder='Player One' required>
@@ -31,7 +33,10 @@
 
     <div id="winner">Outcome</div>
     
-    <div class="gameBoardContainer" id="gameBoard">
+    <div id="boardContainerContainer">
+        <div class="gameBoardContainer" id="gameBoard">
+    </div>
+    
 
     </div>
 </body>
