@@ -10,26 +10,30 @@
 </head>
 <body>
     <!--<button>Start</button> will add start functionality-->
+    <div class="container">
     <div class="buttonContainer">
         <button id='resetButton'>Reset Board</button>
         <button id="namesButton">Enter Names</button>
         <button id="aiToggle">AI</button>
     </div>
-    <form id='myForm' onsubmit="return false">
-        <label for="playerOneInput">X Player:</label>
-        <input type="text" id="playerOneInput" placeholder='Player One' required>
-
+    <form id='myForm' class="form" onsubmit="return false">
+        <li class="formInput">
+            <label for="playerOneInput">X Player:</label>
+            <input type="text" id="playerOneInput" placeholder='Player One' required>
+        </li>
+        <li class="formInput">
         <label for="playerTwoInput">O Player:</label>
         <input type="text" id="playerTwoInput" placeholder='Player Two' required>
-
+        </li>
         <input type="submit" value="Submit Names" id="submitButton">
     </form>
 
-    <form id="aiForm" onsubmit="return false">
+    <form id="aiForm" class = 'form' onsubmit="return false">
         <label for="playerOneInput">X Player:</label>
         <input type="text" id="playerOneInputAI" placeholder='Player One' required>
         <input type="submit" value="Submit Names" id="submitButtonAI">
     </form>
+    </div>  
 
     <div id="winner">Outcome</div>
     

@@ -44,6 +44,32 @@ button {
     width: 6rem;
     height: 2rem;
     border-radius: .5rem;
+    background-color: antiquewhite;
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+}
+
+.form {
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    width: 10rem;
+}
+
+.formInput {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    list-style-type: none;
+}
+
+#winner {
+    display: flex;
+    justify-content: center;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    font-size: large;
+}
 /*Add normalize css https://necolas.github.io/normalize.css/latest/normalize.css*/
