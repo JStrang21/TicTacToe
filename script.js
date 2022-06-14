@@ -34,6 +34,7 @@ const gameBoard = (() => {
     const gameBoardContainer = document.querySelector('.gameBoardContainer');
     //Two loops for each dimension of board checkedArray
     let elementID = 0;
+    //Maybe use factory to create board elements instead of double loops
     for (i = 0; i < board.length; i++) {
         for (j = 0; j < board[i].length; j++) {
             const newElement = document.createElement('div');
@@ -180,7 +181,25 @@ namesButton.addEventListener('click', () => {
     aiform.style['display'] = 'none';
 })
 
-//Reset function
+const aiButton = document.getElementById('aiToggle');
+aiButton.addEventListener('click', () => {
+    const playerform = document.getElementById('myForm');
+    playerform.style['display'] = 'none';
+    const aiform = document.getElementById('aiForm');
+    aiform.style['display'] = '';
+});
+const aiSubmit = document.getElementById('submitButtonAI');
+aiSubmit.addEventListener('click', () => {
+    const playerOneName = document.getElementById('playerOneInputAI').value;
+    playerX.playerName = playerOneName;
+    playerO.playerName = 'AI';
+
+    const aiform = document.getElementById('aiForm');
+    aiform.style['display'] = 'none';    
+})
+
+
+
 const resetBoard = () => {
     const gameBoardElementsOne = Array.from(document.querySelectorAll('.gameElements'));
     //gameBoardElementsOne.classList.add('aiFunctionality', 'gameElements')
@@ -200,21 +219,3 @@ const resetBoard = () => {
 //Reset button which resets board by removing checks, resetting numberOfClicks, and resetting checkedArray
 const resetButton = document.getElementById('resetButton');
 resetButton.addEventListener('click', resetBoard)
-
-const aiButton = document.getElementById('aiToggle');
-aiButton.addEventListener('click', () => {
-    const playerform = document.getElementById('myForm');
-    playerform.style['display'] = 'none';
-    const aiform = document.getElementById('aiForm');
-    aiform.style['display'] = '';
-});
-const aiSubmit = document.getElementById('submitButtonAI');
-aiSubmit.addEventListener('click', () => {
-    const playerOneName = document.getElementById('playerOneInputAI').value;
-    playerX.playerName = playerOneName;
-    playerO.playerName = 'AI';
-
-    const aiform = document.getElementById('aiForm');
-    aiform.style['display'] = 'none';    
-})
-
